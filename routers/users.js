@@ -19,6 +19,8 @@ router.get(
   usersController.profile
 );
 
+router.get("/delete", passport.checkAuthentication, usersController.delete);
+
 router.get('/log-out', usersController.destroySession);
 
 module.exports = router;

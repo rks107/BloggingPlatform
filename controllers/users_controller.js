@@ -62,3 +62,30 @@ module.exports.destroySession = function (req, res) {
   // req.flash("success", "You have logged out");
   return res.redirect("/");
 };
+
+
+
+// USER DELETE
+module.exports.delete = function (req, res) {
+
+  conn.query("DELETE FROM blog WHERE user_id = (?);", [req.user.id], function (
+    err,
+    results,
+    fields
+  ) {
+    if (err) throw err;
+    else console.log("Inserted " + results.affectedRows + " row(s).");
+  });
+
+  conn.query("DELETE FROM user WHERE id = (?);", [req.user.id], function (
+    err,
+    results,
+    fields
+  ) {
+    if (err) throw err;
+    else console.log("Inserted " + results.affectedRows + " row(s).");
+  });
+
+  req.logout();
+  return res.redirect("/");
+};

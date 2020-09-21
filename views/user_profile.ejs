@@ -6,8 +6,9 @@
     <div class="profile">
         <h3><%= locals.user.name %> </h3>
         <h3><%= locals.user.email %> </h3>
-        <button class="btn">Update Profile</button>
+        <a href="/users/delete">
         <button class="btn btn__delete">Delete Account</button>
+        </a>
     </div>
     <div class="blog">
         <div class="blog__form">
@@ -20,9 +21,16 @@
         </div>
         <div class="personal__blog">
             <p class="headline">PREVIOUS BLOGS</p>
-            <% for(blog of blogs){%>
+            <% if(blogs.length == 0) {%> 
+                <h3 style="text-align: center; font-weight: bolder; color: blue;" > You Have 0 Blog.</h3>
+            <% }else{ %> 
+
+                <% for(blog of blogs){%>
                 <%- include('blog') -%> 
-            <%}%>
+                <%}%>
+
+             <% } %>  
+            
         </div>
     </div>
 </div>
