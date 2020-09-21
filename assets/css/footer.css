@@ -1,0 +1,16 @@
+footer {
+  font-size: 1.2rem;
+  color: white;
+  padding: 0 10px;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+footer li {
+  list-style: none;
+}
+
+footer li a {
+  text-decoration: none;
+  color: white;
+}
