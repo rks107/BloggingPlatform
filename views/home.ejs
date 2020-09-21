@@ -1,2 +1,13 @@
+<link rel="stylesheet" href="/css/home.css">
+    
+    <div class="container">
+        <% if(blogs.length == 0) {%> 
+                <h3> You Have <span> 0 </span> Blog.</h3>
+        <% }else{ %> 
 
-    <h1>home</h1>
+            <% for(blog of blogs){%>
+                <%- include('blog') -%> 
+            <%}%>
+
+        <% } %>   
+    </div>

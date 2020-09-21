@@ -2,9 +2,9 @@ const conn = require("../config/mysql");
 
 // render Sign up page
 module.exports.signUp = function (req, res) {
-//   if (req.isAuthenticated()) {
-//     return res.redirect("/users/profile");
-//   }
+  if (req.isAuthenticated()) {
+    return res.redirect("/users/profile");
+  }
 
   return res.render("user_sign_up", {
     title: "Sign Up",
@@ -14,9 +14,9 @@ module.exports.signUp = function (req, res) {
 // render Sign in page
 module.exports.signIn = function(req, res) {
 
-    // if(req.isAuthenticated()) {
-    //     return res.redirect('/users/profile');
-    // }
+    if(req.isAuthenticated()) {
+        return res.redirect('/users/profile');
+    }
 
     return res.render('user_sign_in', {
         title : "Sign In"
@@ -59,7 +59,6 @@ module.exports.profile = function (req, res) {
 
 module.exports.destroySession = function (req, res) {
   req.logout();
-  // req.flash("success", "You have logged out");
   return res.redirect("/");
 };
 
