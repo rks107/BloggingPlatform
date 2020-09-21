@@ -53,6 +53,10 @@
   align-items: center;
 }
 
+.container .blog .blog__form form textarea, .container .blog .blog__form form input {
+  font-size: 20px;
+}
+
 .container .blog .blog__form form .btn__blog {
   background-color: green;
 }
