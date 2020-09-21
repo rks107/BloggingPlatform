@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/css/blog.css">
+
+
+<div id="container">
+    <div class="container__header">
+        <p><%= locals.user.name %></p>
+        <% if(locals.user) {%>
+            <a href="/blog/delete/<%= blog.id %>">Delete blog</a>
+        <% } %>  
+    </div>
+    <p><%= blog.title %></p>
+    <div class="blog">
+        <%= blog.text %>
+    </div>
+    <div class="container__footer">
+        <% if(locals.user) {%>
+            <a href="/blog/update-blog/<%= blog.id %>">Update blog</a>
+        <% } %> 
+    </div>
+    
+</div>

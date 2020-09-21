@@ -1,0 +1,10 @@
+<link rel="stylesheet" href="/css/users_profile.css">
+
+<div class="blog__form">
+            <p class="headline">EDIT YOUR BLOG HERE</p>
+            <form action="/blog/update/<%= blog.id %>" method="POST">
+                <input type="text" name="title" placeholder="<%= blog.title %>"><br>
+                <textarea name="text" cols="30" rows="10" placeholder="<%= blog.text %>"></textarea>
+                <button class="btn btn__blog" type="submit">Submit</button>
+            </form>
+</div>

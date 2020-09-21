@@ -38,3 +38,27 @@ module.exports.create = function (req, res) {
     return res.redirect("back");
   }
 };
+
+module.exports.createSession = function (req, res) {
+  return res.redirect("/users/profile");
+};
+
+module.exports.profile = function (req, res) {
+  conn.query(
+    `SELECT * FROM blog where user_id = (?)`,
+    [req.user.id],
+    function (err, results, fields) {
+
+      return res.render("user_profile", {
+        title: "User Profile",
+        blogs: results,
+      });
+    }
+  );
+};
+
+module.exports.destroySession = function (req, res) {
+  req.logout();
+  // req.flash("success", "You have logged out");
+  return res.redirect("/");
+};
