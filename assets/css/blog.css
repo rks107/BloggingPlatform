@@ -1,3 +1,12 @@
+a:hover {
+  color: hotpink;
+}
+
+a {
+  color: red;
+  text-decoration: none;
+}
+
 #container {
   box-shadow: 0 0 5px black;
   border-radius: 10px;

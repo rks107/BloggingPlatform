@@ -9,7 +9,10 @@ const db = require("./config/mysql");
 // Used for session cookies
 const session = require('express-session');
 const passport = require('passport');
-const passportLocal = require("./config/passport-local-strategy")
+const passportLocal = require("./config/passport-local-strategy");
+const MySQLStore = require('connect-mysql')(session);
+const flash = require("connect-flash");
+const customeMware = require("./config/middleware");
 
 app.use(cookiePrser());
 
@@ -48,15 +51,7 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 100,
     },
-    // store: new MongoStore(
-    //   {
-    //     mongooseConnection: db,
-    //     autoRemove: "disabled",
-    //   },
-    //   function (err) {
-    //     console.log(err || "connect-mysql setup ok");
-    //   }
-    // ),
+    store: new MySQLStore(db)
   })
 );
 
@@ -64,6 +59,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.checkAuthenticationUser);
 
+// For Flashes
+app.use(flash());
+app.use(customeMware.setFlash);
 
 // use express router
 app.use('/',require('./routers'));
