@@ -1,4 +1,7 @@
 const conn = require("../config/mysql");
+const Cryptr = require('cryptr');
+cryptr = new Cryptr('bloggingPlatform');
+
 
 // render Sign up page
 module.exports.signUp = function (req, res) {
@@ -25,9 +28,17 @@ module.exports.signIn = function(req, res) {
 
 module.exports.create = function (req, res) {
   if (req.body.password == req.body.confirm_password) {
+
+    const EncryptedPassword = cryptr.encrypt(req.body.password);
+    // console.log("EncryptedPassword:", EncryptedPassword);
+
     conn.query(
-      "INSERT INTO user (name, email, password) VALUES (?, ?, ?);",
-      [req.body.name, req.body.email, req.body.password],
+      `INSERT INTO user (name, email, password) VALUES (?, ?, ?);`,
+      [
+        req.body.name,
+        req.body.email,
+        EncryptedPassword
+      ],
       function (err, results, fields) {
         if (err) throw err;
         else console.log("Inserted " + results.affectedRows + " row(s).");

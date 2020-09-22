@@ -4,6 +4,9 @@ const LocalStrategy = require("passport-local").Strategy;
 
 const conn = require("./mysql");
 
+const Cryptr = require("cryptr");
+cryptr = new Cryptr("bloggingPlatform");
+
 // authentication using passport
 passport.use(
   new LocalStrategy(
@@ -19,13 +22,13 @@ passport.use(
       ) {
         if (err) {
             req.flash("error", err);
-          // console.log("Error in finding user --> Passport_1");
           return done(err);
         }
 
-        if (user.length == 0 || user[0].password != password) {
-            req.flash("error", "Invalid Username/Password");
-          // console.log("Invalid Username/Password");
+        const DecryptedPassword = cryptr.decrypt(user[0].password);
+
+        if (user.length == 0 || DecryptedPassword != password) {
+          req.flash("error", "Invalid Username/Password");
           return done(null, false);
         }
 
@@ -65,7 +68,6 @@ passport.checkAuthentication = function (req, res, next) {
 
 passport.checkAuthenticationUser = function (req, res, next) {
   if (req.isAuthenticated()) {
-    // console.log("checkAuthenticationUser", req.user);
     // req.user contains the current Signed In user from the session cookies and we are just sending it to the locals for the views
     res.locals.user = req.user;
   }
