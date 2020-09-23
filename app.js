@@ -1,12 +1,14 @@
 const express = require("express");
+const env = require("./config/environment");
+const logger = require("morgan");
 const app = express();
 const cookiePrser = require("cookie-parser");
 const path = require("path");
-const port = 8000;
-///process.env.PORT ||  
+const port = process.env.PORT || 8000;
 const expressLayouts = require("express-ejs-layouts");
 const sassMiddleware = require("node-sass-middleware");
 const db = require("./config/mysql");
+
 // Used for session cookies
 const session = require('express-session');
 const passport = require('passport');
@@ -15,24 +17,32 @@ const MySQLStore = require('connect-mysql')(session);
 const flash = require("connect-flash");
 const customeMware = require("./config/middleware");
 
+
+
 app.use(cookiePrser());
 
-// SASS
-app.use(
-  sassMiddleware({
-    src: "./assets/scss",
-    dest: "./assets/css",
-    debug: false,
-    outputStyle: "expanded",
-    prefix: "/css",
-  })
-);
+if (env.name == "development"){
+  // SASS
+  app.use(
+    sassMiddleware({
+      src: path.join(__dirname, env.asset_path, "scss"),
+      dest: path.join(__dirname, env.asset_path, "css"),
+      debug: false,
+      outputStyle: "expanded",
+      prefix: "/css",
+    })
+  );
+}
+
 
 // middleware
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
+
+// MORGAN
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 // Express Layouts
 app.use(expressLayouts);
@@ -46,7 +56,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(
   session({
     name: "BloggingPlatform",
-    secret: "SomethingSecreteKey",
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {
@@ -66,6 +76,7 @@ app.use(customeMware.setFlash);
 
 // use express router
 app.use('/',require('./routers'));
+
 
 
 app.listen(port, function (err) {

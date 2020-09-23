@@ -1,0 +1,24 @@
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10vh auto;
+  width: 50vh;
+  box-shadow: 0 0 5px black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+form input {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  font-size: 1.2rem;
+}
+
+form div {
+  margin-top: 8px;
+}
+
+#signUp-link {
+  text-decoration: none;
+}

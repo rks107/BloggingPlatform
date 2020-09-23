@@ -1,20 +1,14 @@
 const mysql = require("mysql");
 
+const env = require("./environment");
 
 var config = {
-  host: "database-1.cltwvfstzb7n.ap-south-1.rds.amazonaws.com",
-  user: "admin",
-  password: "rohitkumar",
-  database: "bloggingplatform",
+  host: env.host,
+  user: env.user,
+  password: env.password,
+  database: env.database,
   port: 3306,
 };
-// var config = {
-//   host: "127.0.0.1",
-//   user: "root",
-//   password: "Rohit@107",
-//   database: "bloggingplatform",
-//   port: 3306,
-// };
 
 const conn = new mysql.createConnection(config);
 

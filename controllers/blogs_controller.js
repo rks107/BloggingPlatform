@@ -37,7 +37,7 @@ module.exports.delete = function (req, res) {
 
 // Refer to form for updating blog
 module.exports.refToUpdateBlog = function (req, res) {
-    
+
   conn.query(
     "select * from blog WHERE id = (?);",
     [req.params.id],
@@ -46,7 +46,7 @@ module.exports.refToUpdateBlog = function (req, res) {
         return res.redirect("back");
         
       } else {
-          console.log(results[0]);
+          // console.log(results[0]);
         return res.render('update_blog',{
             title: 'Update Blog',
             blog: results[0]
