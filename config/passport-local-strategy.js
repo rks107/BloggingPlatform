@@ -24,10 +24,9 @@ passport.use(
             req.flash("error", err);
           return done(err);
         }
-
-        const DecryptedPassword = cryptr.decrypt(user[0].password);
-
-        if (user.length == 0 || DecryptedPassword != password) {
+        // const DecryptedPassword = cryptr.decrypt(user[0].pass);
+        // console.log("DecryptedPassword:", DecryptedPassword);
+        if (user.length == 0 || user[0].pass != password) {
           req.flash("error", "Invalid Username/Password");
           return done(null, false);
         }

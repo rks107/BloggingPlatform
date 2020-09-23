@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const cookiePrser = require("cookie-parser");
 const path = require("path");
-const port = process.env.PORT ||  1000;
+const port = 8000;
+///process.env.PORT ||  
 const expressLayouts = require("express-ejs-layouts");
 const sassMiddleware = require("node-sass-middleware");
 const db = require("./config/mysql");

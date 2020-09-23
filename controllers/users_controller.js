@@ -28,17 +28,12 @@ module.exports.signIn = function(req, res) {
 
 module.exports.create = function (req, res) {
   if (req.body.password == req.body.confirm_password) {
-
+    
     const EncryptedPassword = cryptr.encrypt(req.body.password);
-    // console.log("EncryptedPassword:", EncryptedPassword);
 
     conn.query(
-      `INSERT INTO user (name, email, password) VALUES (?, ?, ?);`,
-      [
-        req.body.name,
-        req.body.email,
-        EncryptedPassword
-      ],
+      `INSERT INTO user (name, email, pass) VALUES (?, ?, ?);`,
+      [req.body.name, req.body.email, req.body.password],
       function (err, results, fields) {
         if (err) throw err;
         else console.log("Inserted " + results.affectedRows + " row(s).");
@@ -81,24 +76,27 @@ module.exports.destroySession = function (req, res) {
 // USER DELETE
 module.exports.delete = function (req, res) {
 
-  conn.query("DELETE FROM blog WHERE user_id = (?);", [req.user.id], function (
-    err,
-    results,
-    fields
-  ) {
-    if (err) throw err;
-    else console.log("Inserted " + results.affectedRows + " row(s).");
-  });
-
-  conn.query("DELETE FROM user WHERE id = (?);", [req.user.id], function (
-    err,
-    results,
-    fields
-  ) {
-    if (err) throw err;
-    else console.log("Inserted " + results.affectedRows + " row(s).");
-  });
-
+  const userId = req.user.id;
   req.logout();
+  
+  conn.query("DELETE FROM blog WHERE user_id = (?);", [userId], function (
+    err,
+    results,
+    fields
+  ) {
+    if (err) throw err;
+    else console.log("Inserted " + results.affectedRows + " row(s).");
+  });
+
+  conn.query("DELETE FROM user WHERE id = (?);", [userId], function (
+    err,
+    results,
+    fields
+  ) {
+    if (err) throw err;
+    else console.log("Inserted " + results.affectedRows + " row(s).");
+  });
+
+  
   return res.redirect("/");
 };
