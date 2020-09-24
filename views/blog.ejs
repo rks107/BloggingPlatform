@@ -4,20 +4,29 @@
 <div id="container">
     <div class="container__header">
         
-        <% if(locals.user) {%>
-            <p><%= locals.user.name %></p>
-            <a href="/blog/delete/<%= blog.id %>">Delete blog</a>
+        <% if(locals.user && locals.user.id == blog.user_id) {%>
+            <p><%= locals.user.name %></p>   
         <% } else{%>
             <p><%= blog.name %></p>
-        <% } %>   
+        <% } %> 
+        <p><%= blog.time_posted %> </p>  
+
     </div>
-    <p><%= blog.title %></p>
+
+    <p class="container__title"><%= blog.title %></p>
+
     <div class="blog">
         <%= blog.text %>
     </div>
-    <div class="container__footer">
-        <% if(locals.user) {%>
-            <a href="/blog/update-blog/<%= blog.id %>">Update blog</a>
+
+    <div class="container__footer" style="display: flex; justify-content: space-between;">
+        <% if(locals.user && locals.user.id == blog.user_id) {%>
+            <div>
+                <a href="/blog/update-blog/<%= blog.id %>">Update blog</a>
+            </div>
+            <div>
+                <a href="/blog/delete/<%= blog.id %>">Delete blog</a>
+            </div>
         <% } %> 
     </div>
     

@@ -52,10 +52,9 @@ module.exports.createSession = function (req, res) {
 
 module.exports.profile = function (req, res) {
   conn.query(
-    `SELECT * FROM blog where user_id = (?)`,
+    `SELECT * FROM blog where user_id = (?) ORDER BY time_posted DESC`,
     [req.user.id],
     function (err, results, fields) {
-
       return res.render("user_profile", {
         title: "User Profile",
         blogs: results,

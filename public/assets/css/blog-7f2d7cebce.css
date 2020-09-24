@@ -25,7 +25,7 @@ a {
   border-top-right-radius: 10px;
 }
 
-#container .container__title {
+#container p {
   font-size: 25px;
   text-align: center;
   font-weight: bolder;
@@ -40,7 +40,8 @@ a {
   color: darkgray;
   width: 100%;
   min-height: 200px;
-  padding: 2px 5px;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
   margin-bottom: 0px;
 }
 

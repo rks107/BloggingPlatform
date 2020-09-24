@@ -21,9 +21,12 @@ a{
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
-    p{
+    .container__title{
+        font-size: 25px;
         text-align: center;
         font-weight: bolder;
+        text-transform: uppercase;
+        color: #4CAF50;
     }
     .blog{
         overflow: hidden;
@@ -32,8 +35,7 @@ a{
         color: darkgray;
         width: 100%;
         min-height: 200px;
-        border-top: 1px solid gray;
-        border-bottom: 1px solid gray;
+        padding: 2px 5px;
         margin-bottom: 0px;
     }
     .container__footer{
@@ -41,9 +43,11 @@ a{
         background-color: rgba(150, 147, 147, 0.6);
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
-        text-align: end;
-        padding-right: 10px;
         font-size: 18px;
         text-decoration: solid;
+        display: flex;
+        justify-content: space-between !important;
+        align-items: center;
+        padding: 0 15px;
     }
 }

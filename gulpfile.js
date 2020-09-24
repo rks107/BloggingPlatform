@@ -52,11 +52,11 @@ gulp.task("clean:assets", function (done) {
   done();
 });
 
-gulp.task(
-  "build",
-  gulp.series("clean:assets", "css", "js"),
-  function (done) {
-    console.log("Building assets");
-    done();
-  }
-);
+// gulp.task(
+//   "build",
+//   gulp.series("clean:assets", "css", "js"),
+//   function (done) {
+//     console.log("Building assets");
+//     done();
+//   }
+// );
