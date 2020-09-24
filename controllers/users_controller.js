@@ -27,22 +27,42 @@ module.exports.signIn = function(req, res) {
 }
 
 module.exports.create = function (req, res) {
+
   if (req.body.password == req.body.confirm_password) {
-    
-    const EncryptedPassword = cryptr.encrypt(req.body.password);
 
     conn.query(
-      `INSERT INTO user (name, email, pass) VALUES (?, ?, ?);`,
-      [req.body.name, req.body.email, req.body.password],
-      function (err, results, fields) {
-        if (err) throw err;
-        else console.log("Inserted " + results.affectedRows + " row(s).");
+      `SELECT * FROM user where email = (?)`,
+      [req.body.email],
+      function (err, user) {
+        if (user[0] && user[0].email == req.body.email) {
+
+          req.flash("error", "Email is already registered");
+          return res.redirect("back");
+
+        } else {
+
+          const EncryptedPassword = cryptr.encrypt(req.body.password);
+          conn.query(
+            `INSERT INTO user (name, email, pass) VALUES (?, ?, ?);`,
+            [req.body.name, req.body.email, req.body.password],
+            function (err, results, fields) {
+              if (err) throw err;
+              else {
+                req.flash("success", "Signed Up Succesfully !!");
+                return res.redirect("/");
+              };
+            }
+          );
+          
+        }
       }
     );
-    return res.redirect("/");
+    
+
   } else {
+    req.flash("error", "Confirm Password not match");
     return res.redirect("back");
-  }
+  };
 };
 
 module.exports.createSession = function (req, res) {
@@ -64,9 +84,9 @@ module.exports.profile = function (req, res) {
 };
 
 module.exports.destroySession = function (req, res) {
-  req.logout();
+  
   req.flash("success", "You have logged out");
-
+  req.logout();
   return res.redirect("/");
 };
 
